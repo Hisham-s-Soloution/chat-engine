@@ -5,9 +5,9 @@ import com.chatapp.chatservice.business.usecase.UserUseCase;
 import com.chatapp.chatservice.exceptions.BusinessException;
 import com.chatapp.chatservice.persistence.entity.User;
 import com.chatapp.chatservice.presentation.req.UserCreationRequest;
+import com.chatapp.chatservice.utlity.MessageUtility;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.coyote.BadRequestException;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +19,8 @@ import java.util.Optional;
 public class UserUseCaseImpl implements UserUseCase {
 
     private final UserService userService;
+    private final MessageUtility messageUtility;
+
 
     @Override
     public User saveNewRequest(UserCreationRequest request) throws BusinessException {
@@ -37,7 +39,7 @@ public class UserUseCaseImpl implements UserUseCase {
         Optional<User> optionalExistingUser = userService.findByEmailOrUserName(request.getEmail(), request.getUserName());
         if(optionalExistingUser.isPresent()){
             log.error("User with email {}, and name {} already exists", request.getEmail(), request.getUserName());
-            throw new BusinessException("User with email " + request.getEmail() + " and name " + request.getUserName() + " already exists", HttpStatus.BAD_REQUEST.value());
+            throw new BusinessException(messageUtility.get("user.error.duplicate"), HttpStatus.BAD_REQUEST.value());
         }
 
         User user = User.builder()
