@@ -1,0 +1,14 @@
+spring:
+  application:
+    name: chat-service
+
+  data:
+    mongodb:
+#      uri: mongodb+srv://cluster0.70pbw60.mongodb.net/learn_mongo?retryWrites=true&w=majority&appName=Cluster0
+      uri: mongodb+srv://adminUser:My20Pass@cluster0.70pbw60.mongodb.net/learn_mongo?retryWrites=true&w=majority&appName=Cluster0
+
+
+server:
+  port: 8080
+  servlet:
+    context-path: /chat-service
