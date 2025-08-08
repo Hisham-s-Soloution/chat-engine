@@ -21,7 +21,7 @@ public class GlobalExceptionHandler {
         errorBody.put("message", ex.getMessage());
         errorBody.put("errorCode", ex.getErrorCode());
         errorBody.put("status", (ex.getErrorCode() != null) ? ex.getErrorCode() : HttpStatus.INTERNAL_SERVER_ERROR.value());
-
+        log.error("BaseException occurred: [errorCode={}, message={}]", ex.getErrorCode(), ex.getMessage(), ex);
         return new ResponseEntity<>(errorBody, HttpStatus.BAD_REQUEST);
     }
 
@@ -33,6 +33,7 @@ public class GlobalExceptionHandler {
         errorBody.put("message", "An unexpected error occurred");
         errorBody.put("details", ex.getMessage());
         errorBody.put("status", HttpStatus.INTERNAL_SERVER_ERROR.value());
+        log.error("Genric Exception occurred: [message={}]", ex.getMessage(), ex);
 
         return new ResponseEntity<>(errorBody, HttpStatus.INTERNAL_SERVER_ERROR);
     }
