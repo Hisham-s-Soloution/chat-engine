@@ -34,7 +34,7 @@ public class UserUseCaseImpl implements UserUseCase {
                         request.getEmail().isEmpty()
         ){
             log.error("Invalid Request, {}", request);
-            throw new IllegalArgumentException();
+            throw new BusinessException(messageUtility.get("general.data.missing"), HttpStatus.BAD_REQUEST.value());
         }
         Optional<User> optionalExistingUser = userService.findByEmailOrUserName(request.getEmail(), request.getUserName());
         if(optionalExistingUser.isPresent()){

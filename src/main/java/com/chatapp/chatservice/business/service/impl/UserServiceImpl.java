@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -34,5 +35,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public Optional<User> findByEmailOrUserName(String email, String userName) {
         return userRepository.findByEmailOrUsername(email, userName);
+    }
+
+    @Override
+    public List<User> getAll() {
+        return userRepository.findAll();
     }
 }

@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -57,5 +58,10 @@ public class MessageServiceImpl implements MessageService {
     @Override
     public List<Message> getUnreadMessages(String receiverId) {
         return messageRepository.findByReceiverIdAndSeenFalse(receiverId);
+    }
+
+    @Override
+    public Optional<Message> findFirstByRoomIdOrderByTimestampDesc(String id) {
+        return messageRepository.findFirstByRoomIdOrderByTimestampDesc(id);
     }
 }

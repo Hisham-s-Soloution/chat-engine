@@ -34,4 +34,9 @@ public class ChatRoomServiceImpl implements ChatRoomService {
     public Optional<ChatRoom> getChatRoom(String userId1, String userId2) {
         return chatRoomRepository.findByParticipantsContainingAndParticipantsContaining(userId1, userId2);
     }
+
+    @Override
+    public Optional<ChatRoom> findByParticipantsContainingAndParticipantsContaining(String currentUserId, String id) {
+        return chatRoomRepository.findByParticipants(Arrays.asList(currentUserId, id));
+    }
 }
